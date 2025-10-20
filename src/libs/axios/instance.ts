@@ -1,5 +1,11 @@
 import environment from "@/config/environment";
 import axios from "axios";
+import { Session } from "next-auth";
+import { getSession } from "next-auth/react";
+
+interface CustomSession extends Session {
+  accessToken?: string;
+}
 
 const headers = {
   "Content-Type": "application/json",
@@ -13,6 +19,10 @@ const instance = axios.create({
 // Untuk nanti bisa ngecek token atau session
 instance.interceptors.request.use(
   async (request) => {
+    const session: CustomSession | null = await getSession();
+    if (session && session.accessToken) {
+      request.headers.Authorization = `Bearer ${session.accessToken}`;
+    }
     return request;
   },
   (error) => Promise.reject(error)
