@@ -30,7 +30,10 @@ const Register = () => {
           <h2 className="text-danger-500 text-xl font-bold">Create Account</h2>
           <p className="mb-4 text-sm">
             Have an account?&nbsp;
-            <Link href={"/login"} className="text-danger-400 font-semibold">
+            <Link
+              href={"/auth/login"}
+              className="text-danger-400 font-semibold"
+            >
               Login Here
             </Link>
           </p>
