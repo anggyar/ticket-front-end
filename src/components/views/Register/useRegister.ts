@@ -28,10 +28,10 @@ const useRegister = () => {
   const router = useRouter();
   const [visiblePassword, setVisiblePassword] = useState({
     password: false,
-    passwordConfirmation: false,
+    confirmPassword: false,
   });
 
-  const handleVisiblePassword = (key: "password" | "passwordConfirmation") => {
+  const handleVisiblePassword = (key: "password" | "confirmPassword") => {
     setVisiblePassword({
       ...visiblePassword,
       [key]: !visiblePassword[key],
