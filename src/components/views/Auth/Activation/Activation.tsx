@@ -3,13 +3,21 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React from "react";
 
-const RegisterSuccess = () => {
+interface PropTypes {
+  status: "success" | "failed";
+}
+const Activation = (props: PropTypes) => {
+  const { status } = props;
   const router = useRouter();
   return (
     <div className="flex w-screen flex-col items-center justify-center gap-10">
       <div className="flex flex-col items-center justify-center gap-10">
         <Image
-          src="/images/illustrations/success.svg"
+          src={
+            status === "success"
+              ? "/images/illustrations/success.svg"
+              : "/images/illustrations/pending.svg"
+          }
           alt="success-logo"
           width={180}
           height={180}
@@ -18,18 +26,20 @@ const RegisterSuccess = () => {
 
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-danger-500 text-3xl font-bold">
-          Create Account Success
+          {status === "success" ? "Activation Success" : "Activation Failed"}
         </h1>
 
         <p className="text-default-500 text-xl font-bold">
-          Check your email for account activation
+          {status === "success"
+            ? "Thank you for activating your account!"
+            : "Sorry, we couldn't activate your account. Your confirmation code is invalid"}
         </p>
 
         <Button
           className="mt-4"
           variant="bordered"
           color="danger"
-          onClick={() => router.push("/")}
+          onPress={() => router.push("/")}
         >
           Back to Home
         </Button>
@@ -38,4 +48,4 @@ const RegisterSuccess = () => {
   );
 };
 
-export default RegisterSuccess;
+export default Activation;

@@ -4,6 +4,8 @@ import "@/styles/styles.css";
 import { cn } from "@/utils/cn";
 import { HeroUIProvider } from "@heroui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { SessionProvider } from "next-auth/react";
+import { AppProps } from "next/app";
 import { Inter } from "next/font/google";
 const inter = Inter({
   subsets: ["latin"],
@@ -19,20 +21,22 @@ const queryClient = new QueryClient({
   },
 });
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <HeroUIProvider>
-        <main
-          className={cn(
-            inter.className,
-            "flex min-h-screen min-w-full flex-col items-center justify-center gap-4"
-          )}
-        >
-          <Component {...pageProps} />
-        </main>
-      </HeroUIProvider>
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <HeroUIProvider>
+          <main
+            className={cn(
+              inter.className,
+              "flex min-h-screen min-w-full flex-col items-center justify-center gap-4"
+            )}
+          >
+            <Component {...pageProps} />
+          </main>
+        </HeroUIProvider>
+      </QueryClientProvider>
+    </SessionProvider>
   );
 }
 

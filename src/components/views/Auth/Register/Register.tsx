@@ -173,7 +173,7 @@ const Register = () => {
 
             <Button color="danger" type="submit">
               {isPendingRegister ? (
-                <Spinner color="danger" label="Loading..." size="sm"></Spinner>
+                <Spinner color="danger" size="sm"></Spinner>
               ) : (
                 "Register"
               )}
